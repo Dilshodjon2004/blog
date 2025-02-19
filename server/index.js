@@ -4,6 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
+const userModel = require('./models/user.model')
 
 const app = express()
 
@@ -20,6 +21,7 @@ app.use(cookieParser())
 
 // Routes
 app.use('/api/v1/auth', require('./routes/auth.route'))
+app.use('/api/v1/user', require('./routes/user.route'))
 
 app.get('/', (req, res) => {
 	res.json({ message: 'Hello from backend' })
@@ -39,3 +41,22 @@ mongoose
 		console.log(error)
 		process.exit(1)
 	})
+
+// async function makeAdmin(username) {
+// 	try {
+// 		const user = await userModel.findOne({ username })
+// 		if (!user) {
+// 			console.log('User not found')
+// 			return
+// 		}
+// 		user.role = 'admin'
+// 		await user.save()
+// 		console.log(`User ${username} is now an admin`)
+// 		mongoose.disconnect()
+// 	} catch (error) {
+// 		console.log('Error:', error)
+// 		mongoose.disconnect()
+// 	}
+// }
+
+// makeAdmin('dilshod111')

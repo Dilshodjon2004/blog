@@ -26,6 +26,6 @@ router.put(
 ) // protected
 router.delete('/delete-image', protect, authController.deleteUserImage) // protected
 
-router.get('/get-users', protect, authController.getUsers) // protectedd
+router.get('/get-users', protect, authController.getUsers) // protected
 
 module.exports = router
