@@ -17,6 +17,17 @@ class UserService {
 		const user = await userModel.findById(id)
 		return user
 	}
+
+	// @desc   Update user by id (put)
+	// @route  POST /api/v1/user/:id
+	// @access private / admin
+	async updateUser(id, body) {
+		const user = await userModel.findByIdAndUpdate(id, body, {
+			new: true,
+			runValidators: true,
+		})
+		return user
+	}
 }
 
 module.exports = new UserService()
