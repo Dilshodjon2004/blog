@@ -16,4 +16,6 @@ router
 	.get(advancedResults(userModel), UserController.getUsers)
 	.post(UserController.createUser)
 
+router.route('/:id').get(UserController.getUser)
+
 module.exports = router

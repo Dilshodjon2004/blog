@@ -2,10 +2,22 @@ const UserService = require('../service/user.service')
 
 class UserController {
 	// @desc   Get all users
-	// @route  GET /api/v1/auth/users
+	// @route  GET /api/v1/auth/user
 	// @access Private / admin
 	async getUsers(req, res, next) {
 		res.status(200).json(res.advancedResults)
+	}
+
+	// @desc   Get user by id
+	// @route  GET /api/v1/auth/user/:id
+	// @access Private / admin
+	async getUser(req, res, next) {
+		try {
+			const user = await UserService.getUser(req.params.id)
+			res.status(200).json({ success: true, data: user })
+		} catch (error) {
+			next(error)
+		}
 	}
 
 	// @desc   Create user
