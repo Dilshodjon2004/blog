@@ -28,6 +28,14 @@ class UserService {
 		})
 		return user
 	}
+
+	// @desc   Delete user by id (delete)
+	// @route  POST /api/v1/user/:id
+	// @access private / admin
+	async deleteUser(id) {
+		await userModel.findByIdAndDelete(id)
+		return null
+	}
 }
 
 module.exports = new UserService()

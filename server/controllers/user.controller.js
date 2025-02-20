@@ -43,6 +43,18 @@ class UserController {
 			next(error)
 		}
 	}
+
+	// @desc   Delete user by id (delete)
+	// @route  GET /api/v1/auth/user
+	// @access Private / admin
+	async deleteUser(req, res, next) {
+		try {
+			const deletedUser = await UserService.deleteUser(req.params.id)
+			res.status(200).json(null)
+		} catch (error) {
+			next(error)
+		}
+	}
 }
 
 module.exports = new UserController()
