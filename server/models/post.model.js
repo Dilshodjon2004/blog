@@ -23,7 +23,7 @@ const postSchema = new Schema(
 			maxLength: 500,
 			required: [true, 'Please enter the description!'],
 		},
-		user: {
+		author: {
 			type: Schema.ObjectId,
 			ref: 'User',
 			required: [true, 'Please enter the user!'],
