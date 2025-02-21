@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+const { Schema, model } = require('mongoose')
 
-const postSchema = new mongoose.Schema(
+const postSchema = new Schema(
 	{
 		title: {
 			type: String,
@@ -8,11 +8,11 @@ const postSchema = new mongoose.Schema(
 			maxLength: 255,
 			required: [true, 'Please enter the title!'],
 		},
-		category: {
-			type: mongoose.Schema.ObjectId,
-			ref: 'Category',
-			required: [true, 'Please enter the category!'],
-		},
+		// category: {
+		// 	type: Schema.ObjectId,
+		// 	ref: 'Category',
+		// 	required: [true, 'Please enter the category!'],
+		// },
 		tags: {
 			type: [String],
 			required: [true, 'Please enter the tags!'],
@@ -24,7 +24,7 @@ const postSchema = new mongoose.Schema(
 			required: [true, 'Please enter the description!'],
 		},
 		user: {
-			type: mongoose.Schema.ObjectId,
+			type: Schema.ObjectId,
 			ref: 'User',
 			required: [true, 'Please enter the user!'],
 		},
