@@ -22,6 +22,7 @@ app.use(cookieParser())
 // Routes
 app.use('/api/v1/auth', require('./routes/auth.route'))
 app.use('/api/v1/user', require('./routes/user.route'))
+app.use('/api/v1/post', require('./routes/post.route'))
 
 app.get('/', (req, res) => {
 	res.json({ message: 'Hello from backend' })
