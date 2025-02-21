@@ -16,13 +16,53 @@ class CategoryController {
 		}
 	}
 
-	// @desc   Get category
+	// @desc   Get categories
 	// @route  GET /api/v1/category/
 	// @access Public
 	async getCategories(req, res, next) {
 		try {
-			const categories = await categoryService.getCategories()
-			res.status(200).json(categories)
+			await categoryService.getCategories()
+			res.status(200).json(res.advancedResults)
+		} catch (error) {
+			next(error)
+		}
+	}
+
+	// @desc   Get category by id
+	// @route  GET /api/v1/category/
+	// @access Public
+	async getCategory(req, res, next) {
+		try {
+			const category = await categoryService.getCategory(req.params.id)
+			res.status(200).json(category)
+		} catch (error) {
+			next(error)
+		}
+	}
+
+	// @desc   Update category
+	// @route  PUT /api/v1/category/
+	// @access Private / admin
+	async updateCategory(req, res, next) {
+		try {
+			const category = await categoryService.updateCategory(
+				req.params.id,
+				req.body,
+				req.user.id
+			)
+			res.status(200).json(category)
+		} catch (error) {
+			next(error)
+		}
+	}
+
+	// @desc   Delete category
+	// @route  DELETE /api/v1/category/
+	// @access Private / admin
+	async deleteCategory(req, res, next) {
+		try {
+			const category = await categoryService.deleteCategory(req.params.id)
+			res.status(200).json({ message: 'Category deleted successfully!' })
 		} catch (error) {
 			next(error)
 		}
