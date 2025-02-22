@@ -18,4 +18,6 @@ router
 	.put(protect, authorize('admin'), categoryController.updateCategory)
 	.delete(protect, authorize('admin'), categoryController.deleteCategory)
 
+router.route('/delete-image/:id').delete(protect, authorize('admin'), categoryController.deleteImage)
+
 module.exports = router

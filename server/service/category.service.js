@@ -44,6 +44,22 @@ class CategoryService {
 		await categoryModel.findByIdAndDelete(id)
 		return null
 	}
+
+	// @desc   Delete image
+	// @route  DELETE /api/v1/category/delete-image/:id
+	// @access Private / admin
+	async deleteImage(id) {
+		const category = await categoryModel.findById(id)
+		if (!category) {
+			return null
+		}
+		await category.updateOne({
+			$unset: {
+				photo: '',
+			},
+		})
+		return null
+	}
 }
 
 module.exports = new CategoryService()

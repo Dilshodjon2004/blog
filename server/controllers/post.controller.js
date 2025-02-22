@@ -24,6 +24,21 @@ class PostController {
 			next(error)
 		}
 	}
+
+	// @desc   Delete post image
+	// @route  DELETE /api/v1/post/delete-image/:id
+	// @access Private
+	async deleteImage(req, res, next) {
+		try {
+			const post = await postService.deleteImage(req.params.id)
+			if (!post) {
+				return res.status(404).json({ message: 'Post not found' })
+			}
+			res.status(200).json({ message: 'Image deleted successfully' })
+		} catch (error) {
+			next(error)
+		}
+	}
 }
 
 module.exports = new PostController()

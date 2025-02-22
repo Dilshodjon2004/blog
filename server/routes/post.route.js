@@ -11,5 +11,7 @@ router
 	.route('/')
 	.post(protect, postController.createPost)
 	.get(protect, advancedResults(postModel), postController.getPosts)
+	
 
+router.route('/delete-image/:id').delete(protect, postController.deleteImage)
 module.exports = router

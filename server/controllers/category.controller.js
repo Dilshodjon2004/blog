@@ -67,6 +67,18 @@ class CategoryController {
 			next(error)
 		}
 	}
+
+	// @desc   Delete category image
+	// @route  DELETE /api/v1/category/delete-image/:id
+	// @access Private / admin
+	async deleteImage(req, res, next) {
+		try {
+			await categoryService.deleteImage(req.params.id)
+			res.status(200).json({ message: 'Image deleted successfully!' })
+		} catch (error) {
+			next(error)
+		}
+	}
 }
 
 module.exports = new CategoryController()
