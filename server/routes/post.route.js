@@ -12,6 +12,9 @@ router
 	.post(protect, postController.createPost)
 	.get(protect, advancedResults(postModel), postController.getPosts)
 
+router.route('/lastone').get(postController.getLatestPost)
+router.route('/lastones').get(postController.getLatestPosts)
+
 router
 	.route('/:id')
 	.get(protect, postController.getPost)

@@ -1,18 +1,6 @@
 const postService = require('../service/post.service')
 
 class PostController {
-	// @desc   Create post
-	// @route  POST /api/v1/post/
-	// @access Private
-	async createPost(req, res, next) {
-		try {
-			const post = await postService.createPost(req.body, req.user)
-			res.status(201).json(post)
-		} catch (error) {
-			next(error)
-		}
-	}
-
 	// @desc   Get all posts
 	// @route  GET /api/v1/post/
 	// @access Public
@@ -35,6 +23,42 @@ class PostController {
 				return res.status(404).json({ message: 'Post not found' })
 			}
 			res.status(200).json(post)
+		} catch (error) {
+			next(error)
+		}
+	}
+
+	// @desc   Get latest post
+	// @route  GET /api/v1/post/lastone
+	// @access Public
+	async getLatestPost(req, res, next) {
+		try {
+			const post = await postService.getLatestPost()
+			res.status(200).json(post)
+		} catch (error) {
+			next(error)
+		}
+	}
+
+	// @desc   Get latest posts
+	// @route  GET /api/v1/post/lastones
+	// @access Public
+	async getLatestPosts(req, res, next) {
+		try {
+			const posts = await postService.getLatestPosts()
+			res.status(200).json(posts)
+		} catch (error) {
+			next(error)
+		}
+	}
+
+	// @desc   Create post
+	// @route  POST /api/v1/post/
+	// @access Private
+	async createPost(req, res, next) {
+		try {
+			const post = await postService.createPost(req.body, req.user)
+			res.status(201).json(post)
 		} catch (error) {
 			next(error)
 		}

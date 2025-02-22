@@ -1,14 +1,6 @@
 const postModel = require('../models/post.model')
 
 class PostService {
-	// @desc   Create post
-	// @route  POST /api/v1/post/
-	// @access Private
-	async createPost(body, user) {
-		const post = await postModel.create({ user: user.id, ...body })
-		return post
-	}
-
 	// @desc   Get all posts
 	// @route  GET /api/v1/post/
 	// @access Public
@@ -30,6 +22,39 @@ class PostService {
 		return post
 	}
 
+	// @desc   Get latest post
+	// @route  GET /api/v1/post/lastone
+	// @access Public
+	async getLatestPost() {
+		const post = await postModel
+			.findOne()
+			.sort({ createdAt: -1 })
+			.populate('author', 'firstName lastName photo username -_id')
+			.populate('category', 'name -_id')
+		return post
+	}
+
+	// @desc   Get latest posts
+	// @route  GET /api/v1/post/lastones
+	// @access Public
+	async getLatestPosts() {
+		const posts = await postModel
+			.find()
+			.sort({ createdAt: -1 })
+			.limit(5)
+			.populate('author', 'firstName lastName photo username -_id')
+			.populate('category', 'name -_id')
+		return posts
+	}
+
+	// @desc   Create post
+	// @route  POST /api/v1/post/
+	// @access Private
+	async createPost(body, user) {
+		const post = await postModel.create({ user: user.id, ...body })
+		return post
+	}
+
 	// @desc   Update post
 	// @route  PUT /api/v1/post/:id
 	// @access Private / only for author
@@ -45,7 +70,7 @@ class PostService {
 	// @route  DELETE /api/v1/post/:id
 	// @access Private / only for author
 	async deletePost(id) {
-		const post = await postModel.findOneAndDelete(id)
+		const post = await postModel.findByIdAndDelete(id)
 		if (!post) {
 			return null
 		}
