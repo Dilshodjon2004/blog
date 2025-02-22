@@ -1,6 +1,7 @@
 const BaseError = require('../errors/base.error')
-const userModel = require('../models/user.model')
-const jwt = require('jsonwebtoken')
+const postModel = require('../models/post.model')
+// const userModel = require('../models/user.model')
+// const jwt = require('jsonwebtoken')
 const tokenService = require('../service/token.service')
 
 exports.protect = async (req, res, next) => {
@@ -39,6 +40,26 @@ exports.protect = async (req, res, next) => {
 // 		next()
 // 	}
 // }
+
+exports.checkOwnership = async (req, res, next) => {
+	try {
+		const post = await postModel
+			.findById(req.params.id)
+			.populate('author', 'id')
+		if (!post) {
+			return next(BaseError.BadRequest('Post not found'))
+		}
+
+		if (post.author.id !== req.user.id) {
+			return next(
+				BaseError.BadRequest('You are not authorized to update this post')
+			)
+		}
+		next()
+	} catch (error) {
+		next(error)
+	}
+}
 
 exports.authorize = (...roles) => {
 	return (req, res, next) => {

@@ -5,7 +5,7 @@ const postModel = require('../models/post.model')
 const postController = require('../controllers/post.controller')
 
 const advancedResults = require('../middlewares/advancedResults')
-const { protect, authorize } = require('../middlewares/auth.middleware')
+const { protect, checkOwnership } = require('../middlewares/auth.middleware')
 
 router
 	.route('/')
@@ -18,8 +18,11 @@ router.route('/lastones').get(postController.getLatestPosts)
 router
 	.route('/:id')
 	.get(protect, postController.getPost)
-	.put(protect, postController.updatePost)
-	.delete(protect, postController.deletePost)
+	.put(protect, checkOwnership, postController.updatePost)
+	.delete(protect, checkOwnership, postController.deletePost)
 
-router.route('/delete-image/:id').delete(protect, postController.deleteImage)
+router
+	.route('/delete-image/:id')
+	.delete(protect, checkOwnership, postController.deleteImage)
+
 module.exports = router
