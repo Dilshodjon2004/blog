@@ -2,7 +2,7 @@ const postModel = require('../models/post.model')
 
 class PostService {
 	async createPost(body, user) {
-		const post = await postModel.create({ authot: user.id, ...body })
+		const post = await postModel.create({ user: user.id, ...body })
 		return post
 	}
 

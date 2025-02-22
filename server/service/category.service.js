@@ -13,8 +13,8 @@ class CategoryService {
 	// @route  GET /api/v1/category/
 	// @access Public
 	async getCategories() {
-		const categories = await categoryModel.find()
-		return categories
+		const category = await categoryModel.find()
+		return category
 	}
 
 	// @desc   Get category by id
