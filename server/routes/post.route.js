@@ -11,7 +11,12 @@ router
 	.route('/')
 	.post(protect, postController.createPost)
 	.get(protect, advancedResults(postModel), postController.getPosts)
-	
+
+router
+	.route('/:id')
+	.get(protect, postController.getPost)
+	.put(protect, postController.updatePost)
+	.delete(protect, postController.deletePost)
 
 router.route('/delete-image/:id').delete(protect, postController.deleteImage)
 module.exports = router

@@ -8,11 +8,11 @@ const postSchema = new Schema(
 			maxLength: 255,
 			required: [true, 'Please enter the title!'],
 		},
-		// category: {
-		// 	type: Schema.ObjectId,
-		// 	ref: 'Category',
-		// 	required: [true, 'Please enter the category!'],
-		// },
+		category: {
+			type: Schema.ObjectId,
+			ref: 'Category',
+			required: [true, 'Please enter the category!'],
+		},
 		tags: {
 			type: [String],
 			required: [true, 'Please enter the tags!'],
@@ -27,6 +27,9 @@ const postSchema = new Schema(
 			type: Schema.ObjectId,
 			ref: 'User',
 			required: [true, 'Please enter the user!'],
+		},
+		photo: {
+			type: String,
 		},
 	},
 	{ timestamps: true }
