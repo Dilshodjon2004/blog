@@ -10,6 +10,15 @@ class CommentService {
 		const comment = await commentModel.findById(id)
 		return comment
 	}
+
+	async updateComment(body, id) {
+		const comment = await commentModel.findByIdAndUpdate(id, body, {
+			new: true,
+			runValidators: true,
+		})
+
+		return comment
+	}
 }
 
 module.exports = new CommentService()

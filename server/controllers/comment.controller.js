@@ -18,6 +18,19 @@ class CommentController {
 			next(error)
 		}
 	}
+
+	async updateComment(req, res, next) {
+		try {
+			const comment = await commentService.updateComment(
+				req.body,
+				req.params.id
+			)
+
+			res.status(200).json(comment)
+		} catch (error) {
+			next(error)
+		}
+	}
 }
 
 module.exports = new CommentController()
