@@ -10,4 +10,6 @@ const router = express.Router()
 
 router.route('/').post(protect, commentController.createComment)
 
+router.route('/:id').get(protect, commentController.getComment)
+
 module.exports = router
