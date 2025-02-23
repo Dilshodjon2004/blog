@@ -14,5 +14,6 @@ router
 	.route('/:id')
 	.get(protect, commentController.getComment)
 	.put(protect, commentController.updateComment)
+	.delete(protect, commentController.deleteComment)
 
 module.exports = router

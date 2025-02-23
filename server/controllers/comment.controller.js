@@ -31,6 +31,15 @@ class CommentController {
 			next(error)
 		}
 	}
+
+	async deleteComment(req, res, next) {
+		try {
+			await commentService.deleteComment(req.params.id)
+			res.status(200).json({ msg: 'deleted successfully' })
+		} catch (error) {
+			next(error)
+		}
+	}
 }
 
 module.exports = new CommentController()

@@ -16,8 +16,11 @@ class CommentService {
 			new: true,
 			runValidators: true,
 		})
-
 		return comment
+	}
+
+	async deleteComment(id) {
+		await commentModel.findByIdAndDelete(id)
 	}
 }
 
