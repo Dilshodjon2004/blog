@@ -23,6 +23,7 @@ app.use(cookieParser())
 app.use('/api/v1/auth', require('./routes/auth.route'))
 app.use('/api/v1/user', require('./routes/user.route'))
 app.use('/api/v1/post', require('./routes/post.route'))
+app.use('/api/v1/comment', require('./routes/comment.route'))
 app.use('/api/v1/category', require('./routes/category.route'))
 app.use('/api/v1/photo', require('./routes/photo.route'))
 
