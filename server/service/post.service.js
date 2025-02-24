@@ -1,3 +1,5 @@
+const mongoose = require('mongoose')
+const commentModel = require('../models/comment.model')
 const postModel = require('../models/post.model')
 
 class PostService {
@@ -45,6 +47,18 @@ class PostService {
 			.populate('author', 'firstName lastName photo username -_id')
 			.populate('category', 'name -_id')
 		return posts
+	}
+
+	// @desc   Get comments
+	// @route  GET /api/v1/post/comment/:id
+	// @access Public
+	async getComments(id) {
+		const postObjId = new mongoose.Types.ObjectId(id)
+		const comments = await commentModel
+			.find({ post: postObjId })
+			.populate('author', 'firstName lastName photo -_id')
+			.sort({ createdAt: -1 })
+		return comments
 	}
 
 	// @desc   Create post

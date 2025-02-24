@@ -14,6 +14,7 @@ router
 
 router.route('/lastone').get(postController.getLatestPost)
 router.route('/lastones').get(postController.getLatestPosts)
+router.route('/comment/:id').get(postController.getComments)
 
 router
 	.route('/:id')

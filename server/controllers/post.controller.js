@@ -64,6 +64,18 @@ class PostController {
 		}
 	}
 
+	// @desc   Get comments
+	// @route  GET /api/v1/post/comment/:id
+	// @access Public
+	async getComments(req, res, next) {
+		try {
+			const comments = await postService.getComments(req.params.id)
+			res.status(200).json(comments)
+		} catch (error) {
+			next(error)
+		}
+	}
+
 	// @desc   Update post
 	// @route  PUT /api/v1/post/:id
 	// @access Private / only for author
