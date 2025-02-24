@@ -16,6 +16,10 @@ router
 	.get(advancedResults(userModel), UserController.getUsers)
 	.post(UserController.createUser)
 
-router.route('/:id').get(UserController.getUser).put(UserController.updateUser).delete(UserController.deleteUser)
+router
+	.route('/:id')
+	.get(UserController.getUser)
+	.put(UserController.updateUser)
+	.delete(UserController.deleteUser)
 
 module.exports = router

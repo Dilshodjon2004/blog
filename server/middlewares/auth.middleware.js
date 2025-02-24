@@ -1,4 +1,5 @@
 const BaseError = require('../errors/base.error')
+const commentModel = require('../models/comment.model')
 const postModel = require('../models/post.model')
 // const userModel = require('../models/user.model')
 // const jwt = require('jsonwebtoken')
@@ -41,20 +42,29 @@ exports.protect = async (req, res, next) => {
 // 	}
 // }
 
-exports.checkOwnership = async (req, res, next) => {
+exports.checkOwnership = type => async (req, res, next) => {
 	try {
-		const post = await postModel
-			.findById(req.params.id)
-			.populate('author', 'id')
-		if (!post) {
-			return next(BaseError.BadRequest('Post not found'))
+		let item
+		if (type === 'post') {
+			item = await postModel.findById(req.params.id)
+		} else if (type === 'comment') {
+			item = await commentModel.findById(req.params.id)
+		} else {
+			return next(BaseError.BadRequest('Invalid type'))
 		}
 
-		if (post.author.id !== req.user.id) {
+		if (!item) {
+			return next(BaseError.BadRequest(`${type} not found`))
+		}
+
+		if (item.author.toString() !== req.user.id) {
 			return next(
-				BaseError.BadRequest('You are not authorized to update this post')
+				BaseError.BadRequest(
+					`You do not have permission to update or delete this ${type}`
+				)
 			)
 		}
+
 		next()
 	} catch (error) {
 		next(error)
@@ -76,3 +86,17 @@ exports.authorize = (...roles) => {
 		next()
 	}
 }
+
+// const post = await postModel
+// 			.findById(req.params.id)
+// 			.populate('author', 'id')
+// 		if (!post) {
+// 			return next(BaseError.BadRequest('Post not found'))
+// 		}
+
+// 		if (post.author.id !== req.user.id) {
+// 			return next(
+// 				BaseError.BadRequest('You are not authorized to update this post')
+// 			)
+// 		}
+// 		next()

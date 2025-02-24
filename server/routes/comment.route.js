@@ -13,7 +13,7 @@ router.route('/').post(protect, commentController.createComment)
 router
 	.route('/:id')
 	.get(protect, commentController.getComment)
-	.put(protect, commentController.updateComment)
-	.delete(protect, commentController.deleteComment)
+	.put(protect, checkOwnership('comment'), commentController.updateComment)
+	.delete(protect, checkOwnership('comment'), commentController.deleteComment)
 
 module.exports = router

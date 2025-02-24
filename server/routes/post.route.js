@@ -18,11 +18,11 @@ router.route('/lastones').get(postController.getLatestPosts)
 router
 	.route('/:id')
 	.get(protect, postController.getPost)
-	.put(protect, checkOwnership, postController.updatePost)
-	.delete(protect, checkOwnership, postController.deletePost)
+	.put(protect, checkOwnership('post'), postController.updatePost)
+	.delete(protect, checkOwnership('post'), postController.deletePost)
 
 router
 	.route('/delete-image/:id')
-	.delete(protect, checkOwnership, postController.deleteImage)
+	.delete(protect, checkOwnership('post'), postController.deleteImage)
 
 module.exports = router

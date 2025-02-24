@@ -1,6 +1,9 @@
 const commentService = require('../service/comment.service')
 
 class CommentController {
+	// @desc   Create comment
+	// @route  POST /api/v1/post/
+	// @access Private
 	async createComment(req, res, next) {
 		try {
 			const comment = await commentService.createComment(req.body, req.user.id)
@@ -10,6 +13,9 @@ class CommentController {
 		}
 	}
 
+	// @desc   Get comment by id
+	// @route  GET /api/v1/post/:id
+	// @access Public
 	async getComment(req, res, next) {
 		try {
 			const comment = await commentService.getComment(req.params.id)
@@ -19,6 +25,9 @@ class CommentController {
 		}
 	}
 
+	// @desc   Update comment
+	// @route  PUT /api/v1/post/:id
+	// @access Private / only for author
 	async updateComment(req, res, next) {
 		try {
 			const comment = await commentService.updateComment(
@@ -32,6 +41,9 @@ class CommentController {
 		}
 	}
 
+	// @desc   Delete comment
+	// @route  DELETE /api/v1/post/:id
+	// @access Private / only for author
 	async deleteComment(req, res, next) {
 		try {
 			await commentService.deleteComment(req.params.id)
