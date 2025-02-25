@@ -1,0 +1,29 @@
+@use '../abstracts' as *;
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.container {
+	max-width: 1280px;
+	margin: 0 auto;
+}
+
+input {
+	color: $primary-blue;
+	font-family: $primaryFont;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 28px;
+	padding: 24px 0;
+	text-indent: 24px;
+	border-radius: 2px;
+	border: 1px solid rgba(109, 110, 118, 0.5);
+	outline: none;
+	width: 100%;
+}
+
+input::placeholder {
+	color: $primary-blue;
+}

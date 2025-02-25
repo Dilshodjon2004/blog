@@ -1,0 +1,35 @@
+@use '../abstracts' as *;
+.navbar {
+	background-color: $primary-blue;
+	padding: 11px 0;
+}
+
+.navbar-items__wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.navbar-items {
+	display: flex;
+	align-items: center;
+	column-gap: 83px;
+}
+
+.nav-links {
+	display: flex;
+	align-items: center;
+	column-gap: 24px;
+	list-style: none;
+}
+
+.nav-link {
+	color: $primary-white;
+	font-family: $primaryFont;
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.btn {
+	@include btn();
+}

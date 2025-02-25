@@ -1,0 +1,20 @@
+@use './variables' as *;
+@mixin btn($bgColor: $primary-white) {
+	padding: 16px 48px;
+	background-color: $bgColor;
+	color: $primary-black;
+	font-family: sans-serif;
+	font-size: 18px;
+	font-weight: 700;
+	outline: none;
+	border: none;
+	width: auto;
+}
+
+@mixin heading() {
+	color: $primary-blue;
+	font-size: 48px;
+	font-weight: 700;
+	line-height: 64px;
+	letter-spacing: -2px;
+}

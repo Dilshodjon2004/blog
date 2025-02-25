@@ -1,0 +1,21 @@
+@use '../abstracts' as *;
+.section-wrapper {
+	width: 100%;
+	text-align: center;
+
+	.heading {
+		@include heading();
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+		max-width: 768px;
+		margin: 0 auto;
+		row-gap: 19px;
+		.btn {
+			margin-top: 35px;
+			@include btn($primary-yellow);
+		}
+	}
+}
