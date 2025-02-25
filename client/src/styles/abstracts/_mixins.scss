@@ -11,8 +11,10 @@
 	width: auto;
 }
 
-@mixin heading() {
-	color: $primary-blue;
+@mixin heading($textColor: $primary-blue, $paddingTop: 0) {
+	padding: #{$paddingTop}px 0;
+	color: $textColor;
+	font-family: $secondaryFont;
 	font-size: 48px;
 	font-weight: 700;
 	line-height: 64px;

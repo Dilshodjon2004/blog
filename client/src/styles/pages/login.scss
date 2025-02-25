@@ -1,17 +1,16 @@
 @use '../abstracts' as *;
 .section-wrapper {
-	width: 100%;
 	text-align: center;
 
 	.heading {
-		@include heading();
+		@include heading($primary-blue, 69);
 	}
 
 	form {
 		display: flex;
 		flex-direction: column;
-		max-width: 768px;
 		margin: 0 auto;
+		max-width: 768px;
 		row-gap: 19px;
 		.btn {
 			margin-top: 35px;

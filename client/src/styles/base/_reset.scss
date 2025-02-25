@@ -10,6 +10,15 @@
 	margin: 0 auto;
 }
 
+.layout {
+	footer {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+	}
+}
+
 input {
 	color: $primary-blue;
 	font-family: $primaryFont;
