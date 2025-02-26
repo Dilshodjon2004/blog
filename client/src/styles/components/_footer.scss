@@ -5,6 +5,16 @@ footer {
 	background-color: $primary-blue;
 	color: $primary-white;
 
+	@media (max-width: 420px) {
+		padding: 27px 0;
+		.footer-items__wrapper {
+			flex-direction: column;
+			justify-content: center;
+			text-align: center;
+			row-gap: 10px;
+		}
+	}
+
 	.footer-items__wrapper {
 		display: flex;
 		justify-content: space-between;
