@@ -1,27 +1,44 @@
 import { Fragment } from 'react'
 import '../../styles/pages/login.scss'
-import { useForm } from 'react-hook-form'
 import loginSchema from '../../schema/loginSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import $axios from '../../server'
 import { useNavigate } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import { authStore } from '../../store/auth.store'
+// import { useAuth } from '../../hooks/use-auth'
+import { useForm } from 'react-hook-form'
 
 const LoginPage = () => {
+	// const { setAuth } = useAuth()
+	const { setIsAuth, setUser } = authStore()
 	const navigate = useNavigate()
+
 	const { register, handleSubmit } = useForm({
 		resolver: yupResolver(loginSchema),
 	})
 
-	const onSubmit = async values => {
-		try {
-			let res = await $axios.post('auth/login', values)
-			console.log(res.data)
-			localStorage.setItem('accessToken', res.data.accessToken)
+	const { mutate, isPending } = useMutation({
+		mutationKey: ['login'],
+		mutationFn: async values => {
+			const { data } = await $axios.post(`auth/login`, values)
+			return data
+		},
+		onSuccess: data => {
+			setUser(data.user)
+			setIsAuth(true)
+			localStorage.setItem('accessToken', data.accessToken)
 			navigate('/')
-		} catch (error) {
-			console.log(error.response)
-		}
+		},
+		onError: error => {
+			console.log(error)
+		},
+	})
+
+	function onSubmit(values) {
+		mutate(values)
 	}
+
 	return (
 		<Fragment>
 			<div className='container'>

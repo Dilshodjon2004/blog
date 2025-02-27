@@ -7,7 +7,9 @@ const authPages = ['/login']
 const Layout = () => {
 	const location = useLocation()
 	return (
-		<div className={authPages.includes(location.pathname) && 'layout'}>
+		<div
+			className={authPages.includes(location.pathname) ? 'layout' : 'undefined'}
+		>
 			<Header />
 			<Outlet />
 			<Footer />
