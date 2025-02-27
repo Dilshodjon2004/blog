@@ -1,26 +1,45 @@
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useMutation } from '@tanstack/react-query'
 import { Fragment } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import $axios from '../../server'
+import { toast } from 'react-toastify'
+import { useAuth } from '../../hooks/use-auth'
 import registerSchema from '../../schema/registerSchema'
+import $axios from '../../server'
+import { authStore } from '../../store/auth.store'
 
 const Register = () => {
+	const { setAuth } = useAuth()
+	const { setIsAuth, setUser } = authStore()
 	const navigate = useNavigate()
+
 	const { register, handleSubmit } = useForm({
 		resolver: yupResolver(registerSchema),
 	})
 
-	const onSubmit = async values => {
-		try {
-			let res = await $axios.post('auth/register', values)
-			console.log(res.data)
-			// localStorage.setItem('accessToken', res.data.accessToken)
+	const { mutate, isPending } = useMutation({
+		mutationKey: ['register'],
+		mutationFn: async values => {
+			const { data } = await $axios.post('auth/register', values)
+			return data
+		},
+		onSuccess: data => {
+			setUser(data.user)
+			setIsAuth(true)
+			localStorage.setItem('accessToken', data.accessToken)
+			toast.success('Successfully registered!')
 			navigate('/login')
-		} catch (error) {
-			console.log(error.response)
-		}
+		},
+		onError: error => {
+			toast.error(error.response?.data?.message)
+		},
+	})
+
+	function onSubmit(values) {
+		mutate(values)
 	}
+
 	return (
 		<Fragment>
 			<div className='container'>
@@ -49,7 +68,7 @@ const Register = () => {
 						/>
 						<input type='password' placeholder='Connfirm password' />
 						<button type='submit' className='btn'>
-							Login
+							Register
 						</button>
 					</form>
 				</div>

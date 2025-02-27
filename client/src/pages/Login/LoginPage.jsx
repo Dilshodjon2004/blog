@@ -8,6 +8,7 @@ import { useMutation } from '@tanstack/react-query'
 import { authStore } from '../../store/auth.store'
 // import { useAuth } from '../../hooks/use-auth'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 const LoginPage = () => {
 	// const { setAuth } = useAuth()
@@ -28,10 +29,11 @@ const LoginPage = () => {
 			setUser(data.user)
 			setIsAuth(true)
 			localStorage.setItem('accessToken', data.accessToken)
+			toast.success('Successfully logged in!')
 			navigate('/')
 		},
 		onError: error => {
-			console.log(error)
+			toast.error(error.response?.data?.message)
 		},
 	})
 
