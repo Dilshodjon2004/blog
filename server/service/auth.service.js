@@ -1,8 +1,9 @@
 const UserDto = require('../dtos/user.dto')
-const BaseError = require('../errors/base.error')
+
 const userModel = require('../models/user.model')
 const bcrypt = require('bcrypt')
 const tokenService = require('../service/token.service')
+const BaseError = require('../errors/base.error')
 
 class AuthService {
 	// @desc   Register user
@@ -38,9 +39,9 @@ class AuthService {
 	async login(username, password) {
 		username = username.trim().toLowerCase()
 
-		if (!username || !password) {
-			throw BaseError.BadRequest('Please enter your username and password!')
-		}
+		// if (!username || !password) {
+		// 	throw BaseError.BadRequest('Please enter your username and password!')
+		// }
 
 		// Check for user
 		const user = await userModel.findOne({ username }).select('+password')

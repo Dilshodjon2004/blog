@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const userModel = require('./models/user.model')
+const errorMiddleware = require('./middlewares/error.middleware')
 
 const app = express()
 
@@ -31,6 +32,7 @@ app.get('/', (req, res) => {
 	res.json({ message: 'Hello from backend' })
 })
 
+app.use(errorMiddleware)
 const PORT = process.env.PORT || 8080
 
 mongoose
