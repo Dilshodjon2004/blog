@@ -1,7 +1,6 @@
-import { useLocation } from 'react-router-dom'
-import Header from './Header'
+import { Outlet, useLocation } from 'react-router-dom'
 import Footer from './Footer'
-import { Outlet } from 'react-router-dom'
+import Header from './Header'
 const authPages = ['/login']
 
 const Layout = () => {

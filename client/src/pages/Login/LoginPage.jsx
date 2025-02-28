@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import '../../styles/pages/login.scss'
 import loginSchema from '../../schema/loginSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -12,14 +12,14 @@ import { toast } from 'react-toastify'
 
 const LoginPage = () => {
 	// const { setAuth } = useAuth()
-	const { setIsAuth, setUser } = authStore()
+	const { setIsAuth, setUser, setAccessToken, accessToken } = authStore()
 	const navigate = useNavigate()
 
 	const { register, handleSubmit } = useForm({
 		resolver: yupResolver(loginSchema),
 	})
 
-	const { mutate, isPending } = useMutation({
+	const { mutate } = useMutation({
 		mutationKey: ['login'],
 		mutationFn: async values => {
 			const { data } = await $axios.post(`auth/login`, values)
@@ -28,7 +28,7 @@ const LoginPage = () => {
 		onSuccess: data => {
 			setUser(data.user)
 			setIsAuth(true)
-			localStorage.setItem('accessToken', data.accessToken)
+			setAccessToken(data.accessToken)
 			toast.success('Successfully logged in!')
 			navigate('/')
 		},
@@ -40,6 +40,12 @@ const LoginPage = () => {
 	function onSubmit(values) {
 		mutate(values)
 	}
+
+	useEffect(() => {
+		if (accessToken !== '') {
+			navigate('/')
+		}
+	}, [])
 
 	return (
 		<Fragment>

@@ -1,7 +1,24 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../assets/logo.svg'
 import '../styles/components/_header.scss'
+import { authStore } from '../store/auth.store'
+import { toast } from 'react-toastify'
+import $axios from '../server'
 const Header = () => {
+	const { setIsAuth, setUser, setAccessToken } = authStore()
+	const navigate = useNavigate()
+
+	const logout = async () => {
+		try {
+			await $axios.post('auth/logout')
+			setAccessToken('')
+			setIsAuth(false)
+			setUser({})
+			navigate('/login')
+		} catch (error) {
+			toast.error(error.response?.data?.message)
+		}
+	}
 	return (
 		<div className='navbar'>
 			<div className='container'>
@@ -16,7 +33,9 @@ const Header = () => {
 							<li className='nav-link'>About Us</li>
 							<li className='nav-link'>Register</li>
 						</ul>
-						<button className='btn'>Login</button>
+						<button className='btn' onClick={logout}>
+							Logout
+						</button>
 					</div>
 				</div>
 			</div>

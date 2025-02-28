@@ -1,5 +1,6 @@
 import axios from 'axios'
 import $axios from '.'
+import { authStore } from '../store/auth.store'
 
 const $api = axios.create({
 	withCredentials: true,
@@ -7,7 +8,8 @@ const $api = axios.create({
 })
 
 $api.interceptors.request.use(config => {
-	config.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`
+	const { accessToken } = authStore.getState()
+	config.headers.Authorization = `Bearer ${accessToken}`
 	return config
 })
 
@@ -24,12 +26,14 @@ $api.interceptors.response.use(
 			!error.config._isRetry
 		) {
 			try {
+				const { setAccessToken } = authStore.getState()
 				originalRequest._isRetry = true
 				const { data } = await $axios.get('auth/refresh')
-				localStorage.setItem('accessToken', data.accessToken)
+				setAccessToken(data.accessToken)
 				return $api.request(originalRequest)
 			} catch (error) {
 				console.log('Not authorized')
+				console.log(error)
 			}
 		}
 		throw error
@@ -37,5 +41,3 @@ $api.interceptors.response.use(
 )
 
 export default $api
-
-// https://blog-backend-lac.vercel.app/api/v1/

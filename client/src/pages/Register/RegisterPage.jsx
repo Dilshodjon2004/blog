@@ -1,24 +1,23 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { useAuth } from '../../hooks/use-auth'
 import registerSchema from '../../schema/registerSchema'
 import $axios from '../../server'
 import { authStore } from '../../store/auth.store'
 
 const Register = () => {
-	const { setAuth } = useAuth()
-	const { setIsAuth, setUser } = authStore()
+	// const { setAuth, authState } = useAuth()
+	const { setIsAuth, setUser, setAccessToken, accessToken } = authStore()
 	const navigate = useNavigate()
 
 	const { register, handleSubmit } = useForm({
 		resolver: yupResolver(registerSchema),
 	})
 
-	const { mutate, isPending } = useMutation({
+	const { mutate } = useMutation({
 		mutationKey: ['register'],
 		mutationFn: async values => {
 			const { data } = await $axios.post('auth/register', values)
@@ -27,7 +26,7 @@ const Register = () => {
 		onSuccess: data => {
 			setUser(data.user)
 			setIsAuth(true)
-			localStorage.setItem('accessToken', data.accessToken)
+			setAccessToken(data.accessToken)
 			toast.success('Successfully registered!')
 			navigate('/login')
 		},
@@ -40,6 +39,11 @@ const Register = () => {
 		mutate(values)
 	}
 
+	useEffect(() => {
+		if (accessToken !== '') {
+			navigate('/')
+		}
+	}, [])
 	return (
 		<Fragment>
 			<div className='container'>
