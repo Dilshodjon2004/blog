@@ -1,0 +1,17 @@
+@use '../abstracts' as *;
+
+.home {
+	.popular-blogs {
+		padding-top: 30px;
+		padding-bottom: 66px;
+
+		.heading {
+			@include heading($primary-blue, 64, 36);
+		}
+
+		.blog-cards {
+			display: flex;
+			justify-content: space-between;
+		}
+	}
+}

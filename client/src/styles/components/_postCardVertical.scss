@@ -1,0 +1,35 @@
+@use '../abstracts' as *;
+.card {
+	width: 405px;
+
+	.card-image__wrapper {
+		width: 100%;
+		height: 318px;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+
+	.card-info__wrapper {
+		padding-top: 32px;
+
+		.card-details {
+			@include paragraph($primary-grey, 14, 500);
+			.card-author {
+				color: $primary-purple;
+			}
+		}
+
+		.card-title {
+			@include heading($primary-blue, 16, 28, 40);
+		}
+
+		.card-description {
+			@include paragraph($primary-blue);
+			opacity: 0.7;
+		}
+	}
+}

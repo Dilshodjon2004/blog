@@ -43,7 +43,7 @@ const App = () => {
 
 	return (
 		<BrowserRouter>
-			<Loader />
+			{/* <Loader /> */}
 			<Routes>
 				<Route element={<Layout />}>
 					<Route index element={<HomePage />} />

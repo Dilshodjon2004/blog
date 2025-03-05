@@ -17,20 +17,20 @@
 	}
 }
 
-@mixin heading($textColor: $primary-blue, $paddingY: 0, $fontSize: 48) {
+@mixin heading($textColor: $primary-blue, $paddingY: 0, $fontSize: 48, $lineHeight: 64) {
 	padding: #{$paddingY}px 0;
 	color: $textColor;
 	font-family: $secondaryFont;
 	font-size: #{$fontSize}px;
 	font-weight: 700;
-	line-height: 64px;
+	line-height: #{$lineHeight}px;
 	letter-spacing: -2px;
 }
 
-@mixin paragraph($textColor: $primary-white, $fontSize: 16) {
+@mixin paragraph($textColor: $primary-white, $fontSize: 16, $fontWeight: 400) {
 	color: $textColor;
 	font-size: #{$fontSize}px;
 	font-family: $primaryFont;
-	font-weight: 400;
+	font-weight: $fontWeight;
 	line-height: 28px;
 }
