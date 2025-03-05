@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 import registerSchema from '../../schema/registerSchema'
 import $axios from '../../server'
 import { authStore } from '../../store/auth.store'
+import { handleLoader } from '../../utils/handleLoader'
 
 const Register = () => {
 	// const { setAuth, authState } = useAuth()
@@ -43,6 +44,7 @@ const Register = () => {
 		if (accessToken !== '') {
 			navigate('/')
 		}
+		handleLoader()
 	}, [])
 	return (
 		<Fragment>

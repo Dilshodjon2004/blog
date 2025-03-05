@@ -1,6 +1,8 @@
 // import { authStore } from '../../store/auth.store'
 
+import { useEffect } from 'react'
 import $api from '../../server/api'
+import { handleLoader } from '../../utils/handleLoader'
 
 const BlogPage = () => {
 	// const { user } = authStore()
@@ -15,6 +17,9 @@ const BlogPage = () => {
 
 	getUser()
 
+	useEffect(() => {
+		handleLoader()
+	}, [])
 	return (
 		<div>
 			BlogPage <p>user</p>

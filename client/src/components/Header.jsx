@@ -5,7 +5,7 @@ import { authStore } from '../store/auth.store'
 import { toast } from 'react-toastify'
 import $axios from '../server'
 const Header = () => {
-	const { setIsAuth, setUser, setAccessToken } = authStore()
+	const { setIsAuth, setUser, setAccessToken, accessToken } = authStore()
 	const navigate = useNavigate()
 
 	const logout = async () => {
@@ -33,9 +33,15 @@ const Header = () => {
 							<li className='nav-link'>About Us</li>
 							<li className='nav-link'>Register</li>
 						</ul>
-						<button className='btn' onClick={logout}>
-							Logout
-						</button>
+						{accessToken === '' ? (
+							<button className='btn' onClick={() => navigate('/login')}>
+								Login
+							</button>
+						) : (
+							<button className='btn' onClick={logout}>
+								Logout
+							</button>
+						)}
 					</div>
 				</div>
 			</div>

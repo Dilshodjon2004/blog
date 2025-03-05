@@ -9,6 +9,7 @@ import { authStore } from '../../store/auth.store'
 // import { useAuth } from '../../hooks/use-auth'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+import { handleLoader } from '../../utils/handleLoader'
 
 const LoginPage = () => {
 	// const { setAuth } = useAuth()
@@ -45,6 +46,7 @@ const LoginPage = () => {
 		if (accessToken !== '') {
 			navigate('/')
 		}
+		handleLoader()
 	}, [])
 
 	return (
